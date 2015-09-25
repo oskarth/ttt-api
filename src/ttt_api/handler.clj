@@ -42,10 +42,10 @@
   (or (row-win? board) (col-win? board) (diagonal-win? board)))
 
 ;; TODO: Row, col, two diagonals.
-(defn not-finished? [board]
+(defn game-in-progress? [board]
   (cond
     (= (count (strip board "ox")) 0) false ;; draw
-    (not (won? board)) false
+    (won? board) false
     :else true))
 
 (defn playable-board? [board]
@@ -56,7 +56,7 @@
   (and
     (valid-board? board)
     (o-turn? board)
-    (not-finished? board)))
+    (game-in-progress? board)))
 
 ;; Plays in the first random position
 (defn play-move [board]
