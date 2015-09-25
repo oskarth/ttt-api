@@ -19,13 +19,35 @@
   (let [diff (- (count-char board "x") (count-char board "o"))]
     (= diff 0)))
 
+(defn row-win? [board]
+  (or (= (get board 1) (get board 2) (get board 3))
+      (= (get board 4) (get board 5) (get board 6))
+      (= (get board 7) (get board 8) (get board 9))))
+
+(defn col-win? [board]
+  (or (= (get board 1) (get board 4) (get board 7))
+      (= (get board 2) (get board 5) (get board 8))
+      (= (get board 3) (get board 6) (get board 9))))
+
+;; TODO
+(defn diagonal-win? [board]
+  false)
+
+(defn won? [board]
+  (or (row-win? board) (col-win? board) (diagonal-win? board)))
+
 ;; TODO: Row, col, two diagonals.
 (defn not-finished? [board]
   (cond
     (= (count (strip board "ox")) 0) false ;; draw
+    (not (won? board)) false
     :else true))
 
 (defn playable-board? [board]
+  (prn board)
+  (prn (valid-board? board))
+  (prn (o-turn? board))
+  (prn (not-finished? board))
   (and
     (valid-board? board)
     (o-turn? board)
