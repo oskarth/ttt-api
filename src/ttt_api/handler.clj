@@ -15,9 +15,12 @@
     (not (= (count (strip board "ox ")) 0)) false
     :else true))
 
+;; XXX: Fix count-char name
 (defn o-turn? [board]
   (let [diff (- (count-char board "x") (count-char board "o"))]
-    (= diff 0)))
+		(prn board)
+		(prn diff)
+    (or (= diff 0) (= diff -1))))
 
 (defn row-win? [board]
   (or (and (= (get board 0) (get board 1) (get board 2))
@@ -52,7 +55,7 @@
   (prn board)
   (prn (valid-board? board))
   (prn (o-turn? board))
-  (prn (not-finished? board))
+  (prn (game-in-progress? board))
   (and
     (valid-board? board)
     (o-turn? board)
