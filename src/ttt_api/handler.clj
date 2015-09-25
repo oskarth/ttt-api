@@ -20,18 +20,23 @@
     (= diff 0)))
 
 (defn row-win? [board]
-  (or (= (get board 1) (get board 2) (get board 3))
-      (= (get board 4) (get board 5) (get board 6))
-      (= (get board 7) (get board 8) (get board 9))))
+  (or (and (= (get board 0) (get board 1) (get board 2))
+				   (not (= (get board 0) \space)))
+      (and (= (get board 3) (get board 4) (get board 5))
+				   (not (= (get board 3) \space)))
+      (and (= (get board 6) (get board 7) (get board 8))
+				   (not (= (get board 6) \space)))))
 
 (defn col-win? [board]
-  (or (= (get board 1) (get board 4) (get board 7))
-      (= (get board 2) (get board 5) (get board 8))
-      (= (get board 3) (get board 6) (get board 9))))
+  (or (and (= (get board 0) (get board 3) (get board 6))
+				   (not (= (get board 0) \space)))
+      (and (= (get board 1) (get board 4) (get board 7))
+				   (not (= (get board 1) \space)))
+      (and (= (get board 2) (get board 5) (get board 8))
+				   (not (= (get board 2) \space)))))
 
 ;; TODO
-(defn diagonal-win? [board]
-  false)
+(defn diagonal-win? [board])
 
 (defn won? [board]
   (or (row-win? board) (col-win? board) (diagonal-win? board)))
